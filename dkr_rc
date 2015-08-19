@@ -1,9 +1,9 @@
-cname="nginx"
+cname="web"
 image="johandry/nginx"
 no_cache=0
 
 run() {
-  docker run -d -P --name "${cname}" -it "${image}"
+  docker run -d -p 80:80 --name "${cname}" -v $PWD/html:/var/www/html "${image}" nginx
   ip=$(docker-machine ip default)
   port=$(docker port ${cname} 80 | cut -f2 -d:)
   url_port=
